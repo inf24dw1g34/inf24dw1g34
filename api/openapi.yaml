@@ -72,7 +72,7 @@ paths:
     post:
       tags:
       - BooksController
-      summary: Add a new book to the library
+      summary: Add a new Book to the library
       operationId: createBook
       requestBody:
         content:
@@ -554,17 +554,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Member'
+              $ref: '#/components/schemas/Author'
           application/xml:
             schema:
-              $ref: '#/components/schemas/Member'
+              $ref: '#/components/schemas/Author'
       responses:
         "200":
           description: Create a Member instance
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Member'
+                $ref: '#/components/schemas/Author'
       x-swagger-router-controller: AuthorsController
   /authors/{id}:
     get:
@@ -859,6 +859,116 @@ paths:
         "404":
           description: id not found
       x-swagger-router-controller: LoansController
+  /books/{id}/authors:
+    get:
+      tags:
+      - BookAuthorController
+      summary: Retrieve Authors from a specific Book
+      operationId: retrieveBookAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Authors of Book with id 1
+            value: 1
+          two:
+            summary: Retrieve Authors of Book with id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: BookAuthorController
+    post:
+      tags:
+      - BookAuthorController
+      summary: Add an Author to a specific Book
+      operationId: createBookAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookAuthor'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/BookAuthor'
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookAuthor'
+      x-swagger-router-controller: BookAuthorController
+  /books/{id}/authors/{idAuthor}:
+    delete:
+      tags:
+      - BookAuthorController
+      summary: Remove an Author from a specific Book
+      operationId: deleteBookAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete from Book 1
+            value: 1
+          two:
+            summary: Delete from Book 2
+            value: 2
+      - name: idAuthor
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete Author 1
+            value: 1
+          two:
+            summary: Delete Author 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: BookAuthorController
 components:
   schemas:
     Book:
@@ -872,10 +982,6 @@ components:
         title:
           maxLength: 255
           type: string
-        idAuthors:
-          type: array
-          items:
-            type: integer
         idGenre:
           type: integer
         publicationYear:
@@ -891,14 +997,11 @@ components:
       additionalProperties: false
       example:
         pageCount: 5
-        idGenre: 1
+        idGenre: 6
         isbn: isbn
         available: true
-        publicationYear: 5
+        publicationYear: 1
         id: 0
-        idAuthors:
-        - 6
-        - 6
         title: title
     Genre:
       required:
@@ -991,28 +1094,40 @@ components:
         idBook: 6
         loanDate: 2000-01-23
         id: 0
+    BookAuthor:
+      required:
+      - idAuthor
+      - idBook
+      type: object
+      properties:
+        id:
+          type: integer
+        idBook:
+          type: integer
+        idAuthor:
+          type: integer
+      additionalProperties: false
+      example:
+        idBook: 6
+        idAuthor: 1
+        id: 0
   examples:
     BookExample01:
       value:
         id: 1
         title: Book 1
-        idAuthors:
-        - 2
         idGenre: 1
         publicationYear: 2000
-        isbn: 1234567891234
+        isbn: "1234567891234"
         pageCount: 234
         available: true
     BookExample02:
       value:
         id: 2
         title: Book 2
-        idAuthors:
-        - 1
-        - 3
         idGenre: 2
         publicationYear: 2002
-        isbn: 9876543210123
+        isbn: "9876543210123"
         pageCount: 564
         available: true
     AuthorExample01:
@@ -1045,7 +1160,7 @@ components:
         email: member1@mail.com
         phone: "+123456789"
         address: R. Sobe e Desce
-        registrationDate: 12/12/2002
+        registrationDate: 2002-12-12T00:00:00.000Z
     MemberExample02:
       value:
         id: 1
@@ -1053,20 +1168,20 @@ components:
         email: member2@mail.com
         phone: "+987654321"
         address: R. Desce e Sobe
-        registrationDate: 20/07/1997
+        registrationDate: 1997-07-20T00:00:00.000Z
     LoanExample01:
       value:
         id: 1
         idBook: 1
         idMember: 1
-        loanDate: 23/04/2024
-        expectedReturnDate: 07/05/2024
-        returnDate: 06/05/2024
+        loanDate: 2024-04-03T00:00:00.000Z
+        expectedReturnDate: 2024-05-07T00:00:00.000Z
+        returnDate: 2024-05-06T00:00:00.000Z
     LoanExample02:
       value:
         id: 2
         idBook: 2
         idMember: 2
-        loanDate: 02/01/2024
-        expectedReturnDate: 29/01/2024
-        returnDate: 03/02/2024
+        loanDate: 2024-01-02T00:00:00.000Z
+        expectedReturnDate: 2024-01-29T00:00:00.000Z
+        returnDate: 2024-02-03T00:00:00.000Z
