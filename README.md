@@ -75,7 +75,7 @@ Container para a base de dados MySQL.
 
 > Primeiro, criar o clone do projeto do github para o computador:
 ```
-git clone: https://github.com/inf24dw1g34/inf24dw1g34.git (...)
+git clone https://github.com/inf24dw1g34/inf24dw1g34.git (...)
 ```
 
 > Segundo, dentro da pasta do projeto, abrir terminal / prompt / bash e fazer o docker compose up:
