@@ -48,6 +48,7 @@ Projeto feito por:
   Detalha as versões exatas das dependências instaladas.
 
 ###Report
+
 O desenvolvimento da aplicação seguiu os seguintes requisitos:
 
 Camada de Serviços REST:
