@@ -71,6 +71,14 @@ Container para o servidor de Node.js.
 
 Container para a base de dados MySQL.
 
+### Instruções para Executar o Projeto
+
+Git - Para clonar o repositório. (git clone)
+
+Docker - Para executar os containers (Node.js e MySQL), (docker-compose up --build)
+
+Postman - Para testar os endpoints da API.
+
 ### Technologies
 
 OpenAPI
