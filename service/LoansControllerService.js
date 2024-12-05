@@ -97,7 +97,12 @@ exports.retrieveLoans = function (idMember, idBook, returned) {
             queryParams.push(idBook);
         }
 
-        if (returned !== undefined) query += " AND returnDate IS NOT NULL";
+        if (returned !== undefined) {
+            if (returned === true || returned === "true")
+                query += " AND returnDate IS NOT NULL";
+            else if (returned === false || returned === "false")
+                query += " AND returnDate IS NULL";
+        }
 
         sql.query(query, queryParams, function (err, res) {
             if (err) {
