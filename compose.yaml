@@ -27,7 +27,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: "mysqladmin -h mysql ping -P 3306 -proot"
+      test: ["CMD-SHELL", "mysqladmin ping -h127.0.0.1 -P3306 -psecret"]
       interval: 10s
       timeout: 30s
       retries: 10
