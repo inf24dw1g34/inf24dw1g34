@@ -50,7 +50,9 @@ Projeto feito por:
 ### Technologies
 
 Mysql
+
 NodeJs
+
 Javascript
 
 ### Frameworks and Libraries
@@ -59,14 +61,19 @@ NodeJs
 
 ### Ferramentas
 Docker
+
 Swagger editor
+
 Postman
+
 Visual sutdio code
+
 Git hub
 
 ### Equipa
 
 António Oliveira a044409@umaia.pt
+
 João Bernardo a045900@umaia.pt
 
 
