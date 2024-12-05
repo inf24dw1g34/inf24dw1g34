@@ -51,20 +51,20 @@ Projeto feito por:
 
 O desenvolvimento da aplicação seguiu os seguintes requisitos:
 
-Camada de Serviços REST:
+- Camada de Serviços REST:
 
 Utilização de Node.js como servidor aplicacional.
 
-Documentação:
+- Documentação:
 
 A API foi documentada utilizando o formato OpenAPI 3.0.
 O ficheiro openapi.yaml descreve os endpoints, parâmetros e respostas disponíveis.
 
-Coleção Postman:
+- Coleção Postman:
 
 Foi disponibilizada uma coleção Postman para testar os serviços. Esta coleção inclui exemplos de requisições para todos os recursos.
 
-Configuração Multi-container:
+- Configuração Multi-container:
 Utilização do Docker para gerir os containers:
 
 Container para o servidor de Node.js.
