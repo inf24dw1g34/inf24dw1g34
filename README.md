@@ -47,7 +47,32 @@ Projeto feito por:
 - **`package-lock.json`**  
   Detalha as versões exatas das dependências instaladas.
 
+###Report
+O desenvolvimento da aplicação seguiu os seguintes requisitos:
+
+Camada de Serviços REST:
+
+Utilização de Node.js como servidor aplicacional.
+
+Documentação:
+
+A API foi documentada utilizando o formato OpenAPI 3.0.
+O ficheiro openapi.yaml descreve os endpoints, parâmetros e respostas disponíveis.
+
+Coleção Postman:
+
+Foi disponibilizada uma coleção Postman para testar os serviços. Esta coleção inclui exemplos de requisições para todos os recursos.
+
+Configuração Multi-container:
+Utilização do Docker para gerir os containers:
+
+Container para o servidor de Node.js.
+
+Container para a base de dados MySQL.
+
 ### Technologies
+
+OpenAPI
 
 Mysql
 
