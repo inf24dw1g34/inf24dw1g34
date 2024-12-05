@@ -96,6 +96,12 @@ Visual studio code
 
 Git hub
 
+### Docker Links
+
+https://hub.docker.com/repository/docker/inf24dw1g34/inf24dw1g34_rep1/general
+
+https://hub.docker.com/repository/docker/inf24dw1g34/inf24dw1g34_rep2/general
+ 
 ### Equipa
 
 António Oliveira a044409@umaia.pt
