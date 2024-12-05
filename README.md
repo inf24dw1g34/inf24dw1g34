@@ -73,7 +73,7 @@ Container para a base de dados MySQL.
 
 ### Instruções para Executar o Projeto
 
-> Primeiro, crear o clone do projeto do github par o computador:
+> Primeiro, criar o clone do projeto do github para o computador:
 ```
 git clone: https://github.com/inf24dw1g34/inf24dw1g34.git (...)
 ```
