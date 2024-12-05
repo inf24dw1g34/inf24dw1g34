@@ -1,4 +1,4 @@
-inf24dw1g34
+# Library
 
 ## Overview
 O nosso trabalho consiste num sistema de gestão de biblioteca. Na nossa aplicação é possível Adicionar livros, autores e géneros, assim como registar empréstimos dos livros, para além disso podemos atualizar as informações de todos estes recursos, criar novos registos e apagar caso necessário. Criamos filtros de pesquisa e relações entre os autores e livros, géneros e livros e por último, empréstimos e livros.
