@@ -1,0 +1,40 @@
+services:
+  app:
+    container_name: library_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: library
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: library
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    networks:
+      - app-network
+    healthcheck:
+      test: "mysqladmin -h mysql ping -P 3306 -proot"
+      interval: 10s
+      timeout: 30s
+      retries: 10
+
+networks:
+  app-network:
+    driver: bridge

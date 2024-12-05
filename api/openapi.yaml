@@ -1,0 +1,1072 @@
+openapi: 3.0.0
+info:
+  title: Library
+  description: This is a REST API Library.
+  contact:
+    name: "A045900, A044409"
+    email: a045900@umaia.pt
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: http://localhost:8080
+  description: My localhost
+  variables:
+    basepath:
+      default: /
+paths:
+  /books:
+    get:
+      tags:
+      - BooksController
+      summary: Retrieve all Books (includes Parameters)
+      operationId: retrieveBooks
+      parameters:
+      - name: idGenre
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: idAuthor
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+      - name: available
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Array of Book model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+                x-content-type: application/json
+              examples:
+                one:
+                  $ref: '#/components/examples/BookExample01'
+                two:
+                  $ref: '#/components/examples/BookExample02'
+            application/xml:
+              schema:
+                type: array
+                xml:
+                  name: Book
+                items:
+                  $ref: '#/components/schemas/Book'
+      x-swagger-router-controller: BooksController
+    post:
+      tags:
+      - BooksController
+      summary: Add a new book to the library
+      operationId: createBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        "200":
+          description: Create a Book instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+      x-swagger-router-controller: BooksController
+  /books/{id}:
+    get:
+      tags:
+      - BooksController
+      summary: Retrieve Book
+      operationId: retrieveBook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Book id 1
+            value: 1
+          two:
+            summary: Retrieve Book id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: BooksController
+    put:
+      tags:
+      - BooksController
+      summary: Update Book
+      operationId: updateBook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Book id 1
+            value: 1
+          two:
+            summary: Update Book id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+            examples:
+              one:
+                $ref: '#/components/examples/BookExample01'
+              two:
+                $ref: '#/components/examples/BookExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Book PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: BooksController
+    delete:
+      tags:
+      - BooksController
+      summary: Delete Book
+      operationId: deleteBook
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete Book id 1
+            value: 1
+          two:
+            summary: Delete Book id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: BooksController
+  /genres:
+    get:
+      tags:
+      - GenresController
+      summary: Retrieve all Genres
+      operationId: retrieveGenres
+      responses:
+        "200":
+          description: Array of Genre model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Genre'
+                x-content-type: application/json
+              examples:
+                one:
+                  $ref: '#/components/examples/GenreExample01'
+                two:
+                  $ref: '#/components/examples/GenreExample02'
+            application/xml:
+              schema:
+                type: array
+                xml:
+                  name: Genre
+                items:
+                  $ref: '#/components/schemas/Genre'
+      x-swagger-router-controller: GenresController
+    post:
+      tags:
+      - GenresController
+      summary: Add a new Genre to the library
+      operationId: createGenre
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Genre'
+      responses:
+        "200":
+          description: Create a Genre instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+      x-swagger-router-controller: GenresController
+  /genres/{id}:
+    get:
+      tags:
+      - GenresController
+      summary: Retrieve Genre
+      operationId: retrieveGenre
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Genre id 1
+            value: 1
+          two:
+            summary: Retrieve Genre id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Genre'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: GenresController
+    put:
+      tags:
+      - GenresController
+      summary: Update Genre
+      operationId: updateGenre
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Genre id 1
+            value: 1
+          two:
+            summary: Update Genre id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Genre'
+            examples:
+              one:
+                $ref: '#/components/examples/GenreExample01'
+              two:
+                $ref: '#/components/examples/GenreExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Genre PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: GenresController
+    delete:
+      tags:
+      - GenresController
+      summary: Delete Genre
+      operationId: deleteGenre
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete Genre id 1
+            value: 1
+          two:
+            summary: Delete Genre id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: GenresController
+  /members:
+    get:
+      tags:
+      - MembersController
+      summary: Retrieve all Members
+      operationId: retrieveMembers
+      responses:
+        "200":
+          description: Array of Member model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+                x-content-type: application/json
+              examples:
+                one:
+                  $ref: '#/components/examples/MemberExample01'
+                two:
+                  $ref: '#/components/examples/MemberExample02'
+            application/xml:
+              schema:
+                type: array
+                xml:
+                  name: Genre
+                items:
+                  $ref: '#/components/schemas/Member'
+      x-swagger-router-controller: MembersController
+    post:
+      tags:
+      - MembersController
+      summary: Add a new Member to the library
+      operationId: createMember
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        "200":
+          description: Create a Member instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+      x-swagger-router-controller: MembersController
+  /members/{id}:
+    get:
+      tags:
+      - MembersController
+      summary: Retrieve Member
+      operationId: retrieveMember
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Genre id 1
+            value: 1
+          two:
+            summary: Retrieve Genre id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: MembersController
+    put:
+      tags:
+      - MembersController
+      summary: Update Member
+      operationId: updateMember
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Member id 1
+            value: 1
+          two:
+            summary: Update Member id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+            examples:
+              one:
+                $ref: '#/components/examples/MemberExample01'
+              two:
+                $ref: '#/components/examples/MemberExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Member PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: MembersController
+    delete:
+      tags:
+      - MembersController
+      summary: Delete Member
+      operationId: deleteMember
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete Member id 1
+            value: 1
+          two:
+            summary: Delete Member id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: MembersController
+  /authors:
+    get:
+      tags:
+      - AuthorsController
+      summary: Retrieve all Authors
+      operationId: retrieveAuthors
+      responses:
+        "200":
+          description: Array of Authors model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+                x-content-type: application/json
+              examples:
+                one:
+                  $ref: '#/components/examples/AuthorExample01'
+                two:
+                  $ref: '#/components/examples/AuthorExample02'
+                three:
+                  $ref: '#/components/examples/AuthorExample03'
+            application/xml:
+              schema:
+                type: array
+                xml:
+                  name: Author
+                items:
+                  $ref: '#/components/schemas/Author'
+      x-swagger-router-controller: AuthorsController
+    post:
+      tags:
+      - AuthorsController
+      summary: Add a new Author to the library
+      operationId: createAuthor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Member'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Member'
+      responses:
+        "200":
+          description: Create a Member instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+      x-swagger-router-controller: AuthorsController
+  /authors/{id}:
+    get:
+      tags:
+      - AuthorsController
+      summary: Retrieve Author
+      operationId: retrieveAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Author id 1
+            value: 1
+          two:
+            summary: Retrieve Author id 2
+            value: 2
+          three:
+            summary: Retrieve Author id 3
+            value: 3
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: AuthorsController
+    put:
+      tags:
+      - AuthorsController
+      summary: Update Author
+      operationId: updateAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Author id 1
+            value: 1
+          two:
+            summary: Update Author id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+            examples:
+              one:
+                $ref: '#/components/examples/AuthorExample01'
+              two:
+                $ref: '#/components/examples/AuthorExample02'
+              three:
+                $ref: '#/components/examples/AuthorExample03'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Author PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: AuthorsController
+    delete:
+      tags:
+      - AuthorsController
+      summary: Delete Author
+      operationId: deleteAuthor
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete Author id 1
+            value: 1
+          two:
+            summary: Delete Author id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: AuthorsController
+  /loans:
+    get:
+      tags:
+      - LoansController
+      summary: Retrieve all Loans (includes Parameters)
+      operationId: retrieveLoans
+      parameters:
+      - name: idMember
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: idBook
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: returned
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Array of Loans model instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+                x-content-type: application/json
+              examples:
+                one:
+                  $ref: '#/components/examples/LoanExample01'
+                two:
+                  $ref: '#/components/examples/LoanExample02'
+            application/xml:
+              schema:
+                type: array
+                xml:
+                  name: Loan
+                items:
+                  $ref: '#/components/schemas/Loan'
+      x-swagger-router-controller: LoansController
+    post:
+      tags:
+      - LoansController
+      summary: Add a new Loan to the library
+      operationId: createLoan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Loan'
+      responses:
+        "200":
+          description: Create a Loan instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+      x-swagger-router-controller: LoansController
+  /loans/{id}:
+    get:
+      tags:
+      - LoansController
+      summary: Retrieve Loan
+      operationId: retrieveLoan
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Retrieve Loan id 1
+            value: 1
+          two:
+            summary: Retrieve Loan id 2
+            value: 2
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: LoansController
+    put:
+      tags:
+      - LoansController
+      summary: Update Loan
+      operationId: updateLoan
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+        examples:
+          one:
+            summary: Update Loan id 1
+            value: 1
+          two:
+            summary: Update Loan id 2
+            value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+            examples:
+              one:
+                $ref: '#/components/examples/LoanExample01'
+              two:
+                $ref: '#/components/examples/LoanExample02'
+        required: true
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                description: Loan PUT success
+                x-content-type: application/json
+        "400":
+          description: Bad request
+        "404":
+          description: id not found
+      x-swagger-router-controller: LoansController
+    delete:
+      tags:
+      - LoansController
+      summary: Delete Loan
+      operationId: deleteLoan
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+        examples:
+          one:
+            summary: Delete Loan id 1
+            value: 1
+          two:
+            summary: Delete Loan id 2
+            value: 2
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: id not found
+      x-swagger-router-controller: LoansController
+components:
+  schemas:
+    Book:
+      required:
+      - idGenre
+      - title
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          maxLength: 255
+          type: string
+        idAuthors:
+          type: array
+          items:
+            type: integer
+        idGenre:
+          type: integer
+        publicationYear:
+          type: integer
+        isbn:
+          maxLength: 13
+          type: string
+        pageCount:
+          type: integer
+        available:
+          type: boolean
+          default: true
+      additionalProperties: false
+      example:
+        pageCount: 5
+        idGenre: 1
+        isbn: isbn
+        available: true
+        publicationYear: 5
+        id: 0
+        idAuthors:
+        - 6
+        - 6
+        title: title
+    Genre:
+      required:
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      additionalProperties: false
+      example:
+        name: name
+        id: 0
+    Member:
+      required:
+      - email
+      - name
+      - registrationDate
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          maxLength: 255
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          maxLength: 15
+          type: string
+        address:
+          maxLength: 255
+          type: string
+        registrationDate:
+          type: string
+          format: date
+      additionalProperties: false
+      example:
+        address: address
+        phone: phone
+        name: name
+        registrationDate: 2000-01-23
+        id: 0
+        email: ""
+    Author:
+      required:
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        nationality:
+          type: string
+      additionalProperties: false
+      example:
+        nationality: nationality
+        name: name
+        id: 0
+    Loan:
+      required:
+      - expectedReturnDate
+      - idBook
+      - idMember
+      - loanDate
+      type: object
+      properties:
+        id:
+          type: integer
+        idBook:
+          type: integer
+        idMember:
+          type: integer
+        loanDate:
+          type: string
+          format: date
+        expectedReturnDate:
+          type: string
+          format: date
+        returnDate:
+          type: string
+          format: date
+      example:
+        returnDate: 2000-01-23
+        idMember: 1
+        expectedReturnDate: 2000-01-23
+        idBook: 6
+        loanDate: 2000-01-23
+        id: 0
+  examples:
+    BookExample01:
+      value:
+        id: 1
+        title: Book 1
+        idAuthors:
+        - 2
+        idGenre: 1
+        publicationYear: 2000
+        isbn: 1234567891234
+        pageCount: 234
+        available: true
+    BookExample02:
+      value:
+        id: 2
+        title: Book 2
+        idAuthors:
+        - 1
+        - 3
+        idGenre: 2
+        publicationYear: 2002
+        isbn: 9876543210123
+        pageCount: 564
+        available: true
+    AuthorExample01:
+      value:
+        id: 1
+        name: Author 1
+        nationality: Portugal
+    AuthorExample02:
+      value:
+        id: 2
+        name: Author 2
+        nationality: Spain
+    AuthorExample03:
+      value:
+        id: 3
+        name: Author 3
+        nationality: France
+    GenreExample01:
+      value:
+        id: 1
+        name: Mystery
+    GenreExample02:
+      value:
+        id: 2
+        name: Romance
+    MemberExample01:
+      value:
+        id: 1
+        name: Member 1
+        email: member1@mail.com
+        phone: "+123456789"
+        address: R. Sobe e Desce
+        registrationDate: 12/12/2002
+    MemberExample02:
+      value:
+        id: 1
+        name: Member 2
+        email: member2@mail.com
+        phone: "+987654321"
+        address: R. Desce e Sobe
+        registrationDate: 20/07/1997
+    LoanExample01:
+      value:
+        id: 1
+        idBook: 1
+        idMember: 1
+        loanDate: 23/04/2024
+        expectedReturnDate: 07/05/2024
+        returnDate: 06/05/2024
+    LoanExample02:
+      value:
+        id: 2
+        idBook: 2
+        idMember: 2
+        loanDate: 02/01/2024
+        expectedReturnDate: 29/01/2024
+        returnDate: 03/02/2024
