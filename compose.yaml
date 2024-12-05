@@ -24,6 +24,7 @@ services:
       MYSQL_DATABASE: library
     volumes:
       - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+      - mysql_data:/var/lib/mysql
     networks:
       - app-network
     healthcheck:
@@ -35,3 +36,6 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mysql_data:
