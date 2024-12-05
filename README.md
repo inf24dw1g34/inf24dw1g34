@@ -73,9 +73,16 @@ Container para a base de dados MySQL.
 
 ### Instruções para Executar o Projeto
 
-Git - Para clonar o repositório. (git clone)
+> Primeiro, crear o clone do projeto do github par o computador:
+```
+git clone: https://github.com/inf24dw1g34/inf24dw1g34.git (...)
+```
 
-Docker - Para executar os containers (Node.js e MySQL), (docker-compose up --build)
+> Segundo, dentro da pasta do projeto, abrir terminal / prompt / bash e fazer o docker compose up:
+```
+docker compose up -d --build (...)
+```
+
 
 Postman - Para testar os endpoints da API.
 
