@@ -47,7 +47,7 @@ Projeto feito por:
 - **`package-lock.json`**  
   Detalha as versões exatas das dependências instaladas.
 
-###Report
+### Report
 
 O desenvolvimento da aplicação seguiu os seguintes requisitos:
 
