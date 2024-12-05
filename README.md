@@ -92,7 +92,7 @@ Swagger editor
 
 Postman
 
-Visual sutdio code
+Visual studio code
 
 Git hub
 
