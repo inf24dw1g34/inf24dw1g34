@@ -1,9 +1,7 @@
 services:
   app:
     container_name: library_app
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: inf24dw1g34/inf24dw1g34_rep1:latest
     ports:
       - "8080:8080"
     environment:
@@ -14,12 +12,11 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-
     networks:
       - app-network
 
   mysql:
-    image: mysql:latest
+    image: inf24dw1g34/inf24dw1g34_rep2:latest
     ports:
       - "3307:3306"
     environment:
